@@ -1,0 +1,9 @@
+li a {
+    margin-left: 10px;
+    color: red;
+    text-decoration: none;
+}
+
+li a:hover {
+    font-weight: bold;
+}
