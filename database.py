@@ -1,7 +1,12 @@
 import sqlite3
 
+DB_NAME = "tasks.db"
+
 def get_connection():
-    conn = sqlite3.connect("tasks.db")
+    return sqlite3.connect(DB_NAME)
+
+def init_db():
+    conn = get_connection()
     conn.execute("""
         CREATE TABLE IF NOT EXISTS tasks (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -9,4 +14,10 @@ def get_connection():
         )
     """)
     conn.commit()
-    return conn
+    conn.close()
+
+def get_all_tasks():
+    conn = get_connection()
+    tasks = conn.execute("SELECT * FROM tasks").fetchall()
+    conn.close()
+    return tasks

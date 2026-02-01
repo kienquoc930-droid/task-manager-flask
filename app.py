@@ -1,5 +1,11 @@
-from flask import Flask, render_template, request, redirect
-from database import get_all_tasks, add_task, delete_task
+from flask import Flask, render_template
+from database import get_all_tasks, init_db
+
+app = Flask(__name__)
+
+# 🚨 DÒNG QUAN TRỌNG
+init_db()
+
 from database import get_task, update_task
 app = Flask(__name__)
 
