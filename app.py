@@ -3,9 +3,8 @@ from database import get_all_tasks, add_task, delete_task, init_db
 
 app = Flask(__name__)
 
-@app.before_first_request
-def setup_db():
-    init_db()
+# ✅ GỌI INIT DB NGAY KHI APP START
+init_db()
 
 @app.route("/", methods=["GET", "POST"])
 def home():
