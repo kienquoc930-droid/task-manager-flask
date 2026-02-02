@@ -1,9 +1,10 @@
 import sqlite3
+import os
 
-DB_NAME = "database.db"
+DB_PATH = "/tmp/database.db"
 
 def get_connection():
-    conn = sqlite3.connect(DB_NAME)
+    conn = sqlite3.connect(DB_PATH, check_same_thread=False)
     conn.row_factory = sqlite3.Row
     return conn
 
@@ -31,7 +32,9 @@ def add_task(title):
         (title,)
     )
     conn.commit()
-    conndef delete_task(task_id):
+    conn.close()
+
+def delete_task(task_id):
     conn = get_connection()
     conn.execute(
         "DELETE FROM tasks WHERE id = ?",
