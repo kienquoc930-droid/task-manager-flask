@@ -1,9 +1,9 @@
 import sqlite3
 
-DB_PATH = "/tmp/tasks.db"
+DB_NAME = "database.db"
 
 def get_connection():
-    conn = sqlite3.connect(DB_PATH)
+    conn = sqlite3.connect(DB_NAME)
     conn.row_factory = sqlite3.Row
     return conn
 
@@ -33,7 +33,7 @@ def add_task(title):
     conn.commit()
     conn.close()
 
-def delete_task(task_id):   # ✅ THIẾU CÁI NÀY LÀ 500
+def delete_task(task_id):
     conn = get_connection()
     conn.execute(
         "DELETE FROM tasks WHERE id = ?",
