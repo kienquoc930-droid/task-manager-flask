@@ -1,23 +1,24 @@
 import sqlite3
 
-DB_NAME = "tasks.db"
-
 def get_connection():
-    return sqlite3.connect(DB_NAME)
-
-def init_db():
-    conn = get_connection()
+    conn = sqlite3.connect("tasks.db", check_same_thread=False)
+    conn.row_factory = sqlite3.Row
     conn.execute("""
         CREATE TABLE IF NOT EXISTS tasks (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            title TEXT NOT NULL
+            name TEXT NOT NULL
         )
     """)
     conn.commit()
-    conn.close()
+    return conn
+
 
 def get_all_tasks():
     conn = get_connection()
-    tasks = conn.execute("SELECT * FROM tasks").fetchall()
-    conn.close()
-    return tasks
+    return conn.execute("SELECT * FROM tasks").fetchall()
+
+
+def add_task(name):
+    conn = get_connection()
+    conn.execute("INSERT INTO tasks (name) VALUES (?)", (name,))
+    conn.commit()
