@@ -1,10 +1,9 @@
 import sqlite3
-import os
 
-DB_PATH = "/tmp/database.db"
+DB_PATH = "/tmp/tasks.db"   # ⚠️ BẮT BUỘC /tmp
 
 def get_connection():
-    conn = sqlite3.connect(DB_PATH, check_same_thread=False)
+    conn = sqlite3.connect(DB_PATH)
     conn.row_factory = sqlite3.Row
     return conn
 
